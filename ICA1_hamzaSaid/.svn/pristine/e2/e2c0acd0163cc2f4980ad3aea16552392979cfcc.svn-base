@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using GDIDrawer;
+
+namespace ICA1_hamzaSaid
+{
+    public partial class Form1 : Form
+
+    {
+        List<TrekLamp> _lamps = new List<TrekLamp>();
+        CDrawer _canvas = new CDrawer(900, 500);
+        Timer _timer = new Timer();
+
+
+        public Form1()
+        {
+            InitializeComponent();
+            _canvas.Scale = 50;
+            _timer.Tick += _timer_Tick;
+            _timer.Enabled = true;
+        }
+
+        private void _timer_Tick(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+    }
+}

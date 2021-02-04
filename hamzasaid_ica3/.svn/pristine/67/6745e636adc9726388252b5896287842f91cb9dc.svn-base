@@ -1,0 +1,141 @@
+﻿//*****************************************************************************
+//CMPE2300 ica3
+//Hamza Said
+//Submission Code : 1202_2300_A03
+//This program will uses a class and static methods and constructor to implement
+//moving balls in the GDIDrawer that can be resized all at once
+//
+//Created Jan 29 2021
+//*****************************************************************************
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using GDIDrawer;
+using System.Drawing;
+
+
+namespace hamzasaid_ica3
+{
+    class Ball
+    {
+        private static Random _rng = new Random();      //random number generator shared by all instances of Ball
+        private static CDrawer _canvas;                 //drawer shared by all Ball instances
+        private static int _radius;                    //radius of all Ball instances
+        private Color _cBallColor;                      //color of THIS ball
+        private Point _ptLocation;                      //X, Y coordinate location for THIS ball
+        private int _iXVelocity;                        //horizontal velocity for THIS ball
+        private int _iYVelocity;                        //vertical velocity for THIS ball
+        private int _iAlive;                            //lifespan of this ball before "Reincarnation"
+
+
+        public static int Radius
+        {
+            set
+            {   //prevent negative or zero radius
+                if (value == 0)
+                    value = 1;
+                _radius = Math.Abs(value);
+            }
+        }
+
+        /// <summary>
+        /// user can access AND set the location of the drawer
+        /// </summary>
+        public static Point CanvasPosition
+        {
+            set
+            {
+                _canvas.Position = new Point(value.X, value.Y);
+            }
+        }
+
+
+        /// <summary>
+        /// Static constructor that creates a shared instance of a randomly dimensioned drawer, and
+        /// a random starting radius for the balls
+        /// </summary>
+        static Ball()
+        {
+
+            //static instance of the drawer with random dimensions and continuous update off
+            _canvas = new CDrawer(_rng.Next(600,901), _rng.Next(500,801), false);
+
+
+            //random initial radius between 10 and 80
+            _radius = _rng.Next(10,81);
+        }
+
+        public Ball()
+        {
+            //set a random color for THIS ball
+            _cBallColor = RandColor.GetColor();
+
+            //generate random velocities for THIS ball between -10 and 10
+            _iXVelocity = _rng.Next(-10, 10);
+            _iYVelocity = _rng.Next(-10, 10);
+
+            //generate a random location for the ball ensuring that it will fit in the screen
+            _ptLocation = new Point(_rng.Next(_canvas.ScaledWidth - _radius * 2) + _radius, _rng.Next(_canvas.ScaledWidth - _radius * 2) + _radius);
+
+        }
+
+
+        /// <summary>
+        /// Place the ball in the drawer 
+        /// </summary>
+        public void ShowBall()
+        {
+            if (_radius != 0)
+                _canvas.AddCenteredEllipse(_ptLocation, _radius * 2, _radius * 2, Color.FromArgb(_iAlive, _cBallColor));
+
+        }
+
+        /// <summary>
+        /// This method will move the ball to its new location withing the drawer
+        /// </summary>
+        public void MoveBall()
+        {
+            _iAlive--;
+
+            if (_iAlive < 1)
+            {
+                _ptLocation = new Point(_rng.Next(_canvas.ScaledWidth - _radius * 2) + _radius, _rng.Next(_canvas.ScaledWidth - _radius * 2) + _radius);
+
+                _iAlive = _rng.Next(50,128);
+            }
+
+            //check to see if the ball will go out of the window, if so negate the velocity
+            if (_ptLocation.X + _radius  >= _canvas.ScaledWidth || (_ptLocation.X - _radius) <= 0)
+                _iXVelocity = -_iXVelocity;
+            if (_ptLocation.Y + _radius  >=_canvas.ScaledHeight || (_ptLocation.Y - _radius)  <= 0)
+                _iYVelocity = -_iYVelocity;
+
+            //move point to new location
+            _ptLocation.X += _iXVelocity;
+            _ptLocation.Y += _iYVelocity;
+
+            //make sure that the initial location of the ball is in the 
+            _ptLocation.X = Math.Max(_ptLocation.X, _radius);
+            _ptLocation.Y = Math.Max(_ptLocation.Y, _radius);
+            _ptLocation.X = Math.Min(_ptLocation.X, _canvas.ScaledWidth - _radius-1);
+            _ptLocation.Y = Math.Min(_ptLocation.Y, _canvas.ScaledHeight - _radius-1);
+        }
+
+        public static bool Loading
+        {
+            set
+            {
+                if (value)
+                    _canvas.Clear();
+                else
+                    _canvas.Render();
+
+            }
+        }
+    }
+
+
+
+}

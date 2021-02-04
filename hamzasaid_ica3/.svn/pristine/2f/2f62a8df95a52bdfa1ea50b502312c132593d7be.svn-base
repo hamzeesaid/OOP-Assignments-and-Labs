@@ -1,0 +1,29 @@
+﻿//*****************************************************************************
+//CMPE2300 ica3
+//Hamza Said
+//Submission Code : 1202_2300_A03
+//This program will uses a class and static methods and constructor to implement
+//moving balls in the GDIDrawer that can be resized all at once
+//
+//Created Jan 29 2021
+//*****************************************************************************
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace hamzasaid_ica3
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+    }
+}

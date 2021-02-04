@@ -1,0 +1,12 @@
+C:\Users\Hamza\Desktop\6th Semester\CMPE2300\ICA's\hamzasaid_ica3\hamzasaid_ica3\bin\Debug\hamzasaid_ica3.exe.config
+C:\Users\Hamza\Desktop\6th Semester\CMPE2300\ICA's\hamzasaid_ica3\hamzasaid_ica3\bin\Debug\hamzasaid_ica3.exe
+C:\Users\Hamza\Desktop\6th Semester\CMPE2300\ICA's\hamzasaid_ica3\hamzasaid_ica3\bin\Debug\hamzasaid_ica3.pdb
+C:\Users\Hamza\Desktop\6th Semester\CMPE2300\ICA's\hamzasaid_ica3\hamzasaid_ica3\bin\Debug\GDIDrawer.dll
+C:\Users\Hamza\Desktop\6th Semester\CMPE2300\ICA's\hamzasaid_ica3\hamzasaid_ica3\obj\Debug\hamzasaid_ica3.csprojAssemblyReference.cache
+C:\Users\Hamza\Desktop\6th Semester\CMPE2300\ICA's\hamzasaid_ica3\hamzasaid_ica3\obj\Debug\hamzasaid_ica3.Form1.resources
+C:\Users\Hamza\Desktop\6th Semester\CMPE2300\ICA's\hamzasaid_ica3\hamzasaid_ica3\obj\Debug\hamzasaid_ica3.Properties.Resources.resources
+C:\Users\Hamza\Desktop\6th Semester\CMPE2300\ICA's\hamzasaid_ica3\hamzasaid_ica3\obj\Debug\hamzasaid_ica3.csproj.GenerateResource.cache
+C:\Users\Hamza\Desktop\6th Semester\CMPE2300\ICA's\hamzasaid_ica3\hamzasaid_ica3\obj\Debug\hamzasaid_ica3.csproj.CoreCompileInputs.cache
+C:\Users\Hamza\Desktop\6th Semester\CMPE2300\ICA's\hamzasaid_ica3\hamzasaid_ica3\obj\Debug\hamzasaid_ica3.csproj.CopyComplete
+C:\Users\Hamza\Desktop\6th Semester\CMPE2300\ICA's\hamzasaid_ica3\hamzasaid_ica3\obj\Debug\hamzasaid_ica3.exe
+C:\Users\Hamza\Desktop\6th Semester\CMPE2300\ICA's\hamzasaid_ica3\hamzasaid_ica3\obj\Debug\hamzasaid_ica3.pdb
