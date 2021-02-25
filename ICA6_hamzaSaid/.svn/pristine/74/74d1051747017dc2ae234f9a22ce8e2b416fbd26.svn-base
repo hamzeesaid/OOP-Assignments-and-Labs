@@ -1,0 +1,136 @@
+﻿//*****************************************************************************
+//Assignment         : CMPE2300 ica4
+
+//Author             : Hamza Said
+
+//Instructor         : Shane 
+
+//Submission Code    : 1202_2300_A06
+
+//Created Feb 7 2021
+
+//*****************************************************************************
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using GDIDrawer;
+using System.Drawing;
+
+namespace ICA6_hamzaSaid
+{
+    class Blocks
+    {
+
+        private static CDrawer _canvas = new CDrawer();     //shared instance of the drawer window
+        private static Random _rand = new Random();          //shared random number generator
+        private int _bsize;                                 //size of this block
+        private Color _blockColor;                         //color of this block
+        private Rectangle _rBlock;                          //coordinates for this block
+
+
+        public int Size
+        {
+            set
+            {
+                _bsize = Math.Abs(value);
+            }
+        }
+
+        public static bool Loading
+        {
+            set
+            {
+                if (value)
+                    _canvas.Clear();
+                else
+                    _canvas.Render();
+
+            }
+        }
+
+
+        public static Point CanvasPosition
+        {
+            set
+            {
+                _canvas.Position = value;
+            }
+        }
+
+
+        static Blocks()
+        {
+            _canvas.ContinuousUpdate = false;
+            _canvas.BBColour = RandColor.GetColor();
+        }
+
+        public Blocks(int iSize)
+        {
+            _blockColor = RandColor.GetColor();
+            Size = iSize;
+            _rBlock.Width = Math.Max(_bsize, 1);
+            _rBlock.Height = Math.Max(_bsize, 1);
+            _rBlock.X = _rand.Next(_canvas.ScaledWidth - _bsize);
+            _rBlock.Y = _rand.Next(_canvas.ScaledHeight - _bsize);
+        }
+
+
+        public void ShowBlock()
+        {            
+            _canvas.AddRectangle(_rBlock, _blockColor);
+        }
+
+        public override bool Equals(object obj)
+        {
+            //check that object is a block, return false if not
+            if (!(obj is Blocks blockTemp))
+                return false;
+
+            //check to see if given block overlaps with this one
+            return _rBlock.IntersectsWith(blockTemp._rBlock); ;
+        }
+
+
+        public override int GetHashCode()
+        {
+            return 1;
+        }
+
+
+        public int CompareTo(object obj)
+        {
+            //if not a block throw an exception
+            if (!(obj is Blocks blockTemp))
+                throw new ArgumentException("Not a block");
+
+            //compare blocks using size
+            return blockTemp._bsize.CompareTo(_bsize);
+
+        }
+
+
+        public static int DistanceDescending(Blocks blockTemp1, Blocks blockTemp2)
+        {
+            if (blockTemp1 == null && blockTemp2 == null) return 0;
+            if (blockTemp2 == null) return -1;
+            if (blockTemp1 == null) return 1;
+
+            return (Math.Pow(blockTemp2._rBlock.X + (blockTemp2._bsize / 2), 2) + Math.Pow(blockTemp2._rBlock.Y + (blockTemp2._bsize / 2), 2)).CompareTo(Math.Pow(blockTemp1._rBlock.X + (blockTemp1._bsize / 2), 2) + Math.Pow(blockTemp1._rBlock.Y + (blockTemp1._bsize / 2), 2));
+        }
+
+
+        public static int ColorCompare(Blocks blockTemp1, Blocks blockTemp2)
+        {
+            if (blockTemp1 == null && blockTemp2 == null) return 0;
+            if (blockTemp2 == null) return -1;
+            if (blockTemp1 == null) return 1;
+
+            return blockTemp2._blockColor.ToArgb().CompareTo(blockTemp1._blockColor.ToArgb());
+        }
+    }
+
+
+
+}

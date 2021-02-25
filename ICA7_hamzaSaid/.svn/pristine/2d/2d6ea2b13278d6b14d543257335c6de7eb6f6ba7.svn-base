@@ -1,0 +1,112 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using GDIDrawer;
+using System.Drawing;
+
+
+namespace ICA7_hamzaSaid
+{
+    class Bar:IComparable
+    {
+        static public CDrawer Canvas { get; private set; }
+        static public int Height { get; private set; }
+        public int Width { get; private set; }
+        public bool HighLight { get; set; }
+
+        private Color BarColor;
+
+        static private Random _rnd = new Random(1);
+
+        static Bar()
+        {
+            Height = 20;
+            Canvas = new CDrawer(bContinuousUpdate: false);
+            Canvas.BBColour = Color.White;
+        }
+
+        public Bar()
+        {
+            Width = _rnd.Next(1, 20) * 10;
+            HighLight = false;
+            BarColor = Color.FromArgb(_rnd.Next(3, 8) * 32 - 1, _rnd.Next(3, 8) * 32, _rnd.Next(3, 8) * 32);
+        }
+
+        public override bool Equals(object obj)
+        {
+           
+            if (!(obj is Bar bar)) throw new ArgumentException("Its not a bar");
+            
+
+            return (BarColor == bar.BarColor) && (Width == bar.Width);
+            
+        }
+   
+        public void ShowBar(Point ptLocation)
+        {
+            Color cBorderColor = Color.Black;
+            int iBorderSize = 1;
+
+            if (HighLight)
+            {
+                cBorderColor = Color.Yellow;
+                iBorderSize = 2;
+            }
+
+            Canvas.AddRectangle(ptLocation.X, ptLocation.Y, Width, Height, BarColor, iBorderSize, cBorderColor);
+        }
+
+        public int CompareTo(object obj)
+        {
+            
+            if (!(obj is Bar bTemp)) throw new ArgumentException("Not a bar...or null");
+
+            return BarColor.ToArgb().CompareTo(bTemp.BarColor.ToArgb());
+
+
+        }
+
+        public static int CompareWidth(Bar bar1, Bar bar2)
+        {
+           
+            if (bar1 == null && bar2 == null)
+                return 0;  
+            if (bar1 == null)
+                return -1;
+            if (bar2 == null)
+                return 1;
+
+            
+            return bar1.Width.CompareTo(bar2.Width);
+        }
+
+
+        public static int CompareWidthColor(Bar bar1, Bar bar2)
+        {
+            if (bar1 == null && bar2 == null) return 0;
+            if (bar1 == null) return -1;
+            if (bar2 == null) return 1;
+
+            if (bar1.Width.CompareTo(bar2.Width) == 0)
+                return bar1.BarColor.ToArgb().CompareTo(bar2.BarColor.ToArgb());
+            else
+                return bar1.Width.CompareTo(bar2.Width);
+        }
+
+        public static bool Brightness(Bar bTemp)
+        {
+            
+            if (bTemp == null)
+                return false;
+
+            return bTemp.BarColor.GetBrightness() > 0.6;
+        }
+
+        public override int GetHashCode()
+        {
+            return 1;
+        }
+    }
+}
